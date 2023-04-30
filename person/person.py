@@ -28,10 +28,9 @@ class Camera(Node):
 		print(angular_z)
 		print(linear_x)
 		
-	def listener_callback(self, data, width):
+	def listener_callback(self, data):
 		#self.get_logger().info('Receiving video frame')
 		current_frame = self.br.imgmsg_to_cv2(data)
-		print(width)
 		hog = cv2.HOGDescriptor()
 		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
@@ -40,8 +39,8 @@ class Camera(Node):
 		for (xA, yA, xB, yB) in boxes:
 			self.get_logger().info('Detecting Person')
 			x_c, y_c = (xA + xB/2), (yA + yB/2)
-			offset_x = x_c - 640
-			theta = offset_x / 1280
+			offset_x = x_c - 125
+			theta = offset_x / 250
 			angular = - 2 * theta
 			self.drive(0.5, angular)
 			#cv2.rectangle(imCV, (xA, yA), (xB, yB),
