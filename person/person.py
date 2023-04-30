@@ -39,8 +39,8 @@ class Camera(Node):
 		for (xA, yA, xB, yB) in boxes:
 			self.get_logger().info('Detecting Person')
 			x_c, y_c = (xA + xB/2), (yA + yB/2)
-			offset_x = x_c - 320
-			theta = offset_x / 640
+			offset_x = x_c - 640
+			theta = offset_x / 1280
 			angular = - 2 * theta
 			self.drive(0.5, angular)
 			#cv2.rectangle(imCV, (xA, yA), (xB, yB),
