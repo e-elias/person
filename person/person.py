@@ -42,7 +42,7 @@ class Camera(Node):
 			offset_x = x_c - 2104
 			theta = offset_x / 4208
 			angular = - 2 * theta
-			drive(0.5, angular)
+			self.drive(0.5, angular)
 			#cv2.rectangle(imCV, (xA, yA), (xB, yB),
 			#	(0, 255, 0), 2)
 			#x_c, y_c = (xA + w/2), (yA + h/2)
