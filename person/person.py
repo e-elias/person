@@ -38,7 +38,7 @@ class Camera(Node):
 		boxes = np.array([[x, y, x+w, y+h] for (x, y, w, h) in boxes])
 		for (xA, yA, xB, yB) in boxes:
 			self.get_logger().info('Detecting Person')
-			x_c, y_c = (xA + w/2), (yA + h/2)
+			x_c, y_c = (xA + xB/2), (yA + yB/2)
 			offset_x = x_c - 2104
 			theta = offset_x / 4208
 			angular = - 2 * theta
