@@ -33,8 +33,8 @@ class Camera(Node):
 		current_frame = self.br.imgmsg_to_cv2(data)
 		hog = cv2.HOGDescriptor()
 		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
-		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
-		boxes, weights = hog.detectMultiScale(current_frame, winStride=(8,8), scaleFactor=1.05)
+		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+		boxes, weights = hog.detectMultiScale(gray, winStride=(8,8))
 		boxes = np.array([[x, y, x+w, y+h] for (x, y, w, h) in boxes])
 		for (xA, yA, xB, yB) in boxes:
 			self.get_logger().info('Detecting Person')
