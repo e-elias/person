@@ -28,9 +28,10 @@ class Camera(Node):
 		print(angular_z)
 		print(linear_x)
 		
-	def listener_callback(self, data):
+	def listener_callback(self, data, width):
 		#self.get_logger().info('Receiving video frame')
 		current_frame = self.br.imgmsg_to_cv2(data)
+		print(width)
 		hog = cv2.HOGDescriptor()
 		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
