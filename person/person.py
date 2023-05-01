@@ -38,7 +38,9 @@ ARUCO_DICT = {
 }
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-t", "--type", type=str, default="DICT_4X4_50", help="type of ArUCo tag to detect")
+ap.add_argument("-t", "--type", type=str,
+	default="DICT_ARUCO_ORIGINAL",
+	help="type of ArUCo tag to detect")
 args = vars(ap.parse_args())
 
 
@@ -65,11 +67,19 @@ class Camera(Node):
 	def listener_callback(self, data):
 		#self.get_logger().info('Receiving video frame')
 		current_frame = self.br.imgmsg_to_cv2(data)
-		arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
-		arucoParams = cv2.aruco.DetectorParameters_create()
+		
+		arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
+		arucoParams = cv2.aruco.DetectorParameters()
+		
+		#arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
+		#arucoParams = cv2.aruco.DetectorParameters_create()
 		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
-		corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
-		for x in corners: 
+		#corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
+		
+		detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
+		(corners, ids, rejected) = detector.detectMarkers(gray)
+		
+		if len(corners) > 0:
 			self.drive(0.5, 0.0)
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
@@ -96,4 +106,3 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
-
