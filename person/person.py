@@ -38,7 +38,7 @@ ARUCO_DICT = {
 }
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-t", "--type", type=str, default="DICT_4X4_50", help="type of ArUCo tag to detect")
+ap.add_argument("-t", "--type", type=str, default="DICT_ARUCO_ORIGINAL", help="type of ArUCo tag to detect")
 args = vars(ap.parse_args())
 
 
