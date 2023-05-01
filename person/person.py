@@ -69,6 +69,7 @@ class Camera(Node):
 		arucoParams = cv2.aruco.DetectorParameters_create()
 		corners, ids, rejected = cv2.aruco.detectMarkers(data, arucoDict, parameters=arucoParams)
 		for x in corners: 
+			print("DETECTING CODE")
 			self.drive(0.5, 0)
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
