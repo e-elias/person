@@ -48,7 +48,7 @@ class Camera(Node):
 	def __init__(self):
 		
 		super().__init__("person_following")
-		self.subscription = self.create_subscription(, '/color/preview/image', self.listener_callback, 10)
+		self.subscription = self.create_subscription(Image, '/color/preview/image', self.listener_callback, 10)
 		self.subscription
 		self.br = CvBridge()
 		
@@ -96,3 +96,4 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
+
