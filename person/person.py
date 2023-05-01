@@ -78,7 +78,14 @@ class Camera(Node):
 		#(corners, ids, rejected) = detector.detectMarkers(gray)
 		
 		if len(corners) > 0:
-			self.drive(0.5, 0.0)
+			#self.drive(0.5, 0.0)
+			for (xA, yA, xB, yB) in boxes:
+				x_c, y_c = (xA + xB/2), (yA + yB/2)
+				offset_x = x_c - 125
+				theta = offset_x / 250
+				angular = - 2 * theta
+				self.drive(0.5, angular)
+				
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
 		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
@@ -104,4 +111,5 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
+
 
