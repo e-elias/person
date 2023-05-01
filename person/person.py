@@ -68,16 +68,16 @@ class Camera(Node):
 		#self.get_logger().info('Receiving video frame')
 		current_frame = self.br.imgmsg_to_cv2(data)
 		
-		arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
-		arucoParams = cv2.aruco.DetectorParameters()
+		#arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
+		#arucoParams = cv2.aruco.DetectorParameters()
 		
-		#arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
-		#arucoParams = cv2.aruco.DetectorParameters_create()
+		arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
+		arucoParams = cv2.aruco.DetectorParameters_create()
 		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
-		#corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
+		corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
 		
-		detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
-		(corners, ids, rejected) = detector.detectMarkers(gray)
+		#detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
+		#(corners, ids, rejected) = detector.detectMarkers(gray)
 		
 		if len(corners) > 0:
 			self.drive(0.5, 0.0)
@@ -106,3 +106,4 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
+
