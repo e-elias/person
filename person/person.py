@@ -48,7 +48,7 @@ class Camera(Node):
 	def __init__(self):
 		
 		super().__init__("person_following")
-		self.subscription = self.create_subscription(Image, '/color/preview/image', self.listener_callback, 10)
+		self.subscription = self.create_subscription(, '/color/preview/image', self.listener_callback, 10)
 		self.subscription
 		self.br = CvBridge()
 		
@@ -67,9 +67,9 @@ class Camera(Node):
 		current_frame = self.br.imgmsg_to_cv2(data)
 		arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
 		arucoParams = cv2.aruco.DetectorParameters_create()
-		corners, ids, rejected = cv2.aruco.detectMarkers(data, arucoDict, parameters=arucoParams)
+		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+		corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
 		for x in corners: 
-			print("DETECTING CODE")
 			self.drive(0.5, 0)
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
@@ -96,4 +96,3 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
-
