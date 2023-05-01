@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'camera_subscriber = person.person:main',
+        	'person_following = person.person:main',
         ],
     },
 )
