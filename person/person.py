@@ -79,7 +79,7 @@ class Camera(Node):
 		
 		if len(corners) > 0:
 			#self.drive(0.5, 0.0)
-			xA, yA, xB, yB = corners
+			(xA, yA, xB, yB) = corners
 			x_c, y_c = (xA + xB/2), (yA + yB/2)
 			offset_x = x_c - 125
 			theta = offset_x / 250
@@ -111,5 +111,3 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
-
-
