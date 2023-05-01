@@ -79,7 +79,7 @@ class Camera(Node):
 		
 		if len(corners) > 0:
 			#self.drive(0.5, 0.0)
-			for (xA, yA, xB, yB) in boxes:
+			for (xA, yA, xB, yB) in corners:
 				x_c, y_c = (xA + xB/2), (yA + yB/2)
 				offset_x = x_c - 125
 				theta = offset_x / 250
