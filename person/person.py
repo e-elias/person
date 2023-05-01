@@ -79,12 +79,18 @@ class Camera(Node):
 		
 		if len(corners) > 0:
 			#self.drive(0.5, 0.0)
-			(xA, yA, xB, yB) = corners
-			x_c, y_c = (xA + xB/2), (yA + yB/2)
-			offset_x = x_c - 125
-			theta = offset_x / 250
-			angular = - 2 * theta
-			self.drive(0.5, angular)
+			ids = ids.flatten()
+			
+			for (markerCorner, markerID) in zip(corners, ids):
+				corners = markerCorner.reshape((4, 2))
+				(xA, yA, xB, yB) = corners
+				
+			#(xA, yA, xB, yB) = corners
+				x_c, y_c = (xA + xB/2), (yA + yB/2)
+				offset_x = x_c - 125
+				theta = offset_x / 250
+				angular = - 2 * theta
+				self.drive(0.5, angular)
 				
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
