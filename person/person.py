@@ -59,8 +59,8 @@ class Camera(Node):
 		msg.angular.z = angular_z
 		msg.linear.x = linear_x
 		self.cmd_vel_pub.publish(msg)
-		print(angular_z)
-		print(linear_x)
+		#print(angular_z)
+		#print(linear_x)
 		
 	def listener_callback(self, data):
 		#self.get_logger().info('Receiving video frame')
@@ -95,6 +95,7 @@ class Camera(Node):
 				
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
+				print("WIDTH OF BOUNDING BOX")
 				print(int(bottomRight[0] - topLeft[0]))
 				offset_x = cX - 125
 				theta = offset_x / 250
