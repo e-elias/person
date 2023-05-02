@@ -95,12 +95,16 @@ class Camera(Node):
 				
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
+				widthBounding = int(bottomRight[0] - topLeft[0])
 				print("WIDTH OF BOUNDING BOX")
-				print(int(bottomRight[0] - topLeft[0]))
-				offset_x = cX - 125
-				theta = offset_x / 250
-				angular = - 2 * theta
-				#self.drive(0.2, float(angular))
+				print(widthBounding)
+				if widthBounding >= 58:
+					print("CAN GRABBED")
+				else:
+					offset_x = cX - 125
+					theta = offset_x / 250
+					angular = - 2 * theta
+					self.drive(0.2, float(angular))
 				
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
@@ -127,3 +131,4 @@ def main(args=None):
 
 if __name__ == '__main__':
 	main()
+
