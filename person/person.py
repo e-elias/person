@@ -95,7 +95,7 @@ class Camera(Node):
 				
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
-				print(int(bottomRight[0] - topLeft[0])
+				print(int(bottomRight[0] - topLeft[0]))
 				offset_x = cX - 125
 				theta = offset_x / 250
 				angular = - 2 * theta
