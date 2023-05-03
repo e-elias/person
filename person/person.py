@@ -95,7 +95,7 @@ class Camera(Node):
 				
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
-				widthBounding = int(bottomRight[0] - topLeft[0])
+				#widthBounding = int(bottomRight[0] - topLeft[0])
 				#print("WIDTH OF BOUNDING BOX")
 				#print(widthBounding)
 				#if widthBounding >= 58:
