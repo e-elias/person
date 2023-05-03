@@ -69,62 +69,55 @@ class Camera(Node):
 		#arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
 		#arucoParams = cv2.aruco.DetectorParameters()
 		
-		arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
-		arucoParams = cv2.aruco.DetectorParameters_create()
-		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
-		corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
+		#arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
+		#arucoParams = cv2.aruco.DetectorParameters_create()
+		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+		#corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
 		
 		#detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
 		#(corners, ids, rejected) = detector.detectMarkers(gray)
-
-		cv2.imwrite('testoutput.png', current_frame)
 		
-		if len(corners) > 0:
+		#if len(corners) > 0:
 			#self.drive(0.5, 0.0)
-			ids = ids.flatten()
+			#ids = ids.flatten()
 			
-			for (markerCorner, markerID) in zip(corners, ids):
-				corners = markerCorner.reshape((4, 2))
-				(topLeft, topRight, bottomRight, bottomLeft) = corners
+			#for (markerCorner, markerID) in zip(corners, ids):
+				#corners = markerCorner.reshape((4, 2))
+				#(topLeft, topRight, bottomRight, bottomLeft) = corners
 				
-				topRight = (int(topRight[0]), int(topRight[1]))
-				bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
-				bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
-				topLeft = (int(topLeft[0]), int(topLeft[1]))
+				#topRight = (int(topRight[0]), int(topRight[1]))
+				#bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
+				#bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
+				#topLeft = (int(topLeft[0]), int(topLeft[1]))
 				
-				cX = int((topLeft[0] + bottomRight[0]) / 2.0)
-				cY = int((topLeft[1] + bottomRight[1]) / 2.0)
+				#cX = int((topLeft[0] + bottomRight[0]) / 2.0)
+				#cY = int((topLeft[1] + bottomRight[1]) / 2.0)
 				
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
 				widthBounding = int(bottomRight[0] - topLeft[0])
-				print("WIDTH OF BOUNDING BOX: ", widthBounding)
-
-				offset_x = cX - 125
-				theta = offset_x / 250
-
-				if abs(offset_x) > 3:
-					self.drive(float(0), float(-2*theta))
-				elif widthBounding < 5800:
-					self.drive(float(0.1), float(0))
-				else:
-					# move servo to 78 degrees
-					# wait 1s
-					# raise lifter for 2 seconds
-					print("CAN GRABBED")
+				#print("WIDTH OF BOUNDING BOX")
+				#print(widthBounding)
+				#if widthBounding >= 58:
+				#	print("CAN GRABBED")
+				#else:
+					#offset_x = cX - 125
+					#theta = offset_x / 250
+					#angular = - 2 * theta
+					#self.drive(0.2, float(angular))
 				
-		#hog = cv2.HOGDescriptor()
-		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
-		#gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
-		#boxes, weights = hog.detectMultiScale(gray, winStride=(8,8))
-		#boxes = np.array([[x, y, x+w, y+h] for (x, y, w, h) in boxes])
-		#for (xA, yA, xB, yB) in boxes:
-		#	self.get_logger().info('Detecting Person')
-		#	x_c, y_c = (xA + xB/2), (yA + yB/2)
-		#	offset_x = x_c - 125
-		#	theta = offset_x / 250
-		#	angular = - 2 * theta
-		#	self.drive(0.5, angular)
+		hog = cv2.HOGDescriptor()
+		hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
+		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
+		boxes, weights = hog.detectMultiScale(gray, winStride=(8,8))
+		boxes = np.array([[x, y, x+w, y+h] for (x, y, w, h) in boxes])
+		for (xA, yA, xB, yB) in boxes:
+			self.get_logger().info('Detecting Person')
+			x_c, y_c = (xA + xB/2), (yA + yB/2)
+			offset_x = x_c - 125
+			theta = offset_x / 250
+			angular = - 2 * theta
+			self.drive(0.5, angular)
 			#cv2.rectangle(imCV, (xA, yA), (xB, yB),
 			#	(0, 255, 0), 2)
 		#cv2.waitKey(1)
