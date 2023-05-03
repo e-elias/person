@@ -103,7 +103,8 @@ class Camera(Node):
 				else:
 					offset_x = cX - 125
 					theta = offset_x / 250
-					self.drive(0.0, float(-2*theta))
+					angular = - 2 * theta
+					self.drive(0.2, float(angular))
 				
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
