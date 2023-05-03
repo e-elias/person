@@ -69,8 +69,8 @@ class Camera(Node):
 		#arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
 		#arucoParams = cv2.aruco.DetectorParameters()
 		
-		arucoDict = cv2.aruco.Dictionary_get(ARUCO_DICT[args["type"]])
-		arucoParams = cv2.aruco.DetectorParameters_create()
+		arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[args["type"]])
+		arucoParams = cv2.aruco.DetectorParameters()
 		gray = cv2.cvtColor(current_frame, cv2.COLOR_BGR2GRAY)
 		corners, ids, rejected = cv2.aruco.detectMarkers(gray, arucoDict, parameters=arucoParams)
 		
