@@ -76,6 +76,8 @@ class Camera(Node):
 		
 		#detector = cv2.aruco.ArucoDetector(arucoDict, arucoParams)
 		#(corners, ids, rejected) = detector.detectMarkers(gray)
+
+		cv2.imwrite('testoutput.png', current_frame)
 		
 		if len(corners) > 0:
 			#self.drive(0.5, 0.0)
@@ -96,14 +98,20 @@ class Camera(Node):
 				#(xA, yA, xB, yB) = corners
 				#x_c, y_c = (xA + xB/2), (yA + yB/2)
 				widthBounding = int(bottomRight[0] - topLeft[0])
-				print("WIDTH OF BOUNDING BOX")
-				print(widthBounding)
-				if widthBounding >= 58:
-					print("CAN GRABBED")
+				print("WIDTH OF BOUNDING BOX: ", widthBounding)
+
+				offset_x = cX - 125
+				theta = offset_x / 250
+
+				if abs(offset_x) > 3:
+					self.drive(float(0), float(-2*theta))
+				elif widthBounding < 5800:
+					self.drive(float(0.1), float(0))
 				else:
-					offset_x = cX - 125
-					theta = offset_x / 250
-					self.drive(float(0.0), float(-2*theta))
+					# move servo to 78 degrees
+					# wait 1s
+					# raise lifter for 2 seconds
+					print("CAN GRABBED")
 				
 		#hog = cv2.HOGDescriptor()
 		#hog.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
